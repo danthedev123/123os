@@ -1,5 +1,6 @@
-#include "../stivale2.h"
+#include "../stivale2/stivale2.h"
 #include <stddef.h>
+#include "../stivale2/stivale2_tags.h"
 
 static uint8_t stack[4096];
 
@@ -61,31 +62,18 @@ static struct stivale2_header stivale_hdr = {
 
 // We will now write a helper function which will allow us to scan for tags
 // that we want FROM the bootloader (structure tags).
-void *stivale2_get_tag(struct stivale2_struct *stivale2_struct, uint64_t id) {
-    struct stivale2_tag *current_tag = (void *)stivale2_struct->tags;
-    for (;;) {
-        // If the tag pointer is NULL (end of linked list), we did not find
-        // the tag. Return NULL to signal this.
-        if (current_tag == NULL) {
-            return NULL;
-        }
-
-        // Check whether the identifier matches. If it does, return a pointer
-        // to the matching tag.
-        if (current_tag->identifier == id) {
-            return current_tag;
-        }
-
-        // Get a pointer to the next tag in the linked list and repeat.
-        current_tag = (void *)current_tag->next;
-    }
-}
 
 // The following will be our kernel's entry point.
 void _start(struct stivale2_struct *stivale2_struct) {
-    // Let's get the terminal structure tag from the bootloader.
-    struct stivale2_struct_tag_terminal *term_str_tag;
-    term_str_tag = stivale2_get_tag(stivale2_struct, STIVALE2_STRUCT_TAG_TERMINAL_ID);
+    // // Let's get the terminal structure tag from the bootloader.
+    // struct stivale2_struct_tag_terminal *term_str_tag;
+    // term_str_tag = stivale2_get_tag(stivale2_struct, STIVALE2_STRUCT_TAG_TERMINAL_ID);
+
+    InitializeTags(stivale2_struct);
+
+    struct stivale2_struct_tag_terminal* term_str_tag;
+
+    term_str_tag = GetTags()->terminal_tag;
 
     // Check if the tag was actually found.
     if (term_str_tag == NULL) {

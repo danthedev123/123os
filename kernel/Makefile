@@ -35,9 +35,6 @@ all: $(KERNEL)
 $(KERNEL): $(OBJ)
 	$(CC) $(INTERNALLDFLAGS) $(OBJ) -o $@
 
-stivale2.h:
-	wget -P kernel/ https://github.com/stivale/stivale/raw/master/stivale2.h
-
 
 %.o: %.c kernel/stivale2.h
 	$(CC) $(CFLAGS) $(INTERNALCFLAGS) -c $< -o $@

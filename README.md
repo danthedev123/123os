@@ -9,5 +9,5 @@
 * Compatability with most hardware
 
 # Contributors
-* Daniel
-* Gunnar
+* [DanTheDev123](https://github.com/danthedev123)
+* [GTH](https://github.com/gunnarhelgason)

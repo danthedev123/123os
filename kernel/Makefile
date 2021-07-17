@@ -36,7 +36,7 @@ $(KERNEL): $(OBJ)
 	$(CC) $(INTERNALLDFLAGS) $(OBJ) -o $@
 
 
-%.o: %.c kernel/stivale2.h
+%.o: %.c
 	$(CC) $(CFLAGS) $(INTERNALCFLAGS) -c $< -o $@
 
 clean:

@@ -1,13 +1,13 @@
 ISO_IMAGE := 123os.iso
 
-.PHONY: clean all run
+.PHONY: clean all run kernel
 
-all: $(ISO_IMAGE)
+all: kernel $(ISO_IMAGE)
 
 run: $(ISO_IMAGE)
 	qemu-system-x86_64 -M q35 -m 2G -cdrom $(ISO_IMAGE)
 
-kernel/kernel.elf:
+kernel:
 	$(MAKE) -C kernel
 
 limine:

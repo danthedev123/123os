@@ -1,16 +1,19 @@
 KERNEL := kernel.elf
 
 CC = cc
+LD = ld
 
 CFLAGS = -Wall -Wextra -O2 -pipe
+LDFLAGS =
 
-INTERNALLDFLAGS := \
-	-fno-pic -fpie \
-	-Wl,-static,-pie,--no-dynamic-linker,-ztext \
-	-static-pie    \
-	-nostdlib      \
-	-Tlinker.ld    \
-	-z max-page-size=0x1000
+INTERNALLDFLAGS :=         \
+	-Tlinker.ld            \
+	-nostdlib              \
+	-zmax-page-size=0x1000 \
+	-static                \
+	-pie                   \
+	--no-dynamic-linker    \
+	-ztext
 
 INTERNALCFLAGS  :=       \
 	-I.                  \
@@ -32,11 +35,13 @@ OBJ    := $(CFILES:.c=.o)
 
 all: $(KERNEL)
 
+stivale2.h:
+	wget https://github.com/stivale/stivale/raw/master/stivale2.h
+
 $(KERNEL): $(OBJ)
-	$(CC) $(INTERNALLDFLAGS) $(OBJ) -o $@
+	$(LD) $(OBJ) $(LDFLAGS) $(INTERNALLDFLAGS) -o $@
 
-
-%.o: %.c
+%.o: %.c stivale2.h
 	$(CC) $(CFLAGS) $(INTERNALCFLAGS) -c $< -o $@
 
 clean:

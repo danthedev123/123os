@@ -61,7 +61,7 @@ static struct stivale2_header stivale_hdr = {
 
 void* stivale2_get_tag(struct stivale2_struct *stivale2_struct, uint64_t id)
 {
-    struct stivale2_tag *current_tag = (void *)stivale2_struct->tags;
+    struct stivale2_tag *current_tag = (stivale2_tag *)stivale2_struct->tags;
     for (;;)
     {
         // If the tag pointer is NULL (end of linked list), we did not find
@@ -79,6 +79,6 @@ void* stivale2_get_tag(struct stivale2_struct *stivale2_struct, uint64_t id)
         }
 
         // Get a pointer to the next tag in the linked list and repeat.
-        current_tag = (void *)current_tag->next;
+        current_tag = (stivale2_tag *)current_tag->next;
     }
 }

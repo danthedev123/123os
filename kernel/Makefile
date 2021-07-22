@@ -28,8 +28,8 @@ INTERNALCFLAGS  :=       \
 	-mno-sse2            \
 	-mno-red-zone
 
-CFILES := $(shell find ./ -type f -name '*.c')
-OBJ    := $(CFILES:.c=.o)
+CFILES := $(shell find ./ -type f -name '*.cpp')
+OBJ    := $(CFILES:.cpp=.o)
 
 .PHONY: all clean
 
@@ -41,7 +41,7 @@ stivale2.h:
 $(KERNEL): $(OBJ)
 	$(LD) $(OBJ) $(LDFLAGS) $(INTERNALLDFLAGS) -o $@
 
-%.o: %.c stivale2.h
+%.o: %.cpp stivale2.h
 	$(CC) $(CFLAGS) $(INTERNALCFLAGS) -c $< -o $@
 
 clean:

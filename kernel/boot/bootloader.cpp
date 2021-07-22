@@ -2,7 +2,7 @@
 #include "setup.h"
 
 // The following will be our kernel's entry point.
-void _start(struct stivale2_struct *stivale2_struct) {
+extern "C" void _start(struct stivale2_struct *stivale2_struct) {
     
     pre_setup(stivale2_struct);
     

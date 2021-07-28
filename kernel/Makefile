@@ -17,7 +17,6 @@ INTERNALLDFLAGS :=         \
 
 INTERNALCFLAGS  :=       \
 	-I.                  \
-	-std=gnu11           \
 	-ffreestanding       \
 	-fno-stack-protector \
 	-fno-pic -fpie       \

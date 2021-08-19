@@ -1,6 +1,6 @@
 ISO_IMAGE := 123os.iso
 
-.PHONY: clean all run kernel limine
+.PHONY: clean all run kernel
 
 all: kernel $(ISO_IMAGE)
 

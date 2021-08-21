@@ -1,9 +1,11 @@
 KERNEL := kernel.elf
 
 CC = cc
+ASM = nasm
 LD = ld
 
 CFLAGS = -Wall -Wextra -O2 -pipe
+ASMFLAGS = 
 LDFLAGS =
 
 INTERNALLDFLAGS :=         \
@@ -28,7 +30,9 @@ INTERNALCFLAGS  :=       \
 	-mno-red-zone
 
 CFILES := $(shell find ./ -type f -name '*.cpp')
+ASMFILES = $(shell find ./ -type f -name '*.asm')
 OBJ    := $(CFILES:.cpp=.o)
+OBJ    += $(ASMFILES:.asm=_asm.o)
 
 .PHONY: all clean
 
@@ -42,6 +46,9 @@ $(KERNEL): $(OBJ)
 
 %.o: %.cpp stivale2.h
 	$(CC) $(CFLAGS) $(INTERNALCFLAGS) -c $< -o $@
+
+%_asm.o: %.asm
+	$(ASM) $(ASMFLAGS) $^ -f elf64 -o $@
 
 clean:
 	rm -rf $(KERNEL) $(OBJ)

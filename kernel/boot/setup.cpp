@@ -1,12 +1,13 @@
 #include "setup.h"
-#include "stivale2/stivale2.h"
-#include "stivale2/stivale2_tags.h"
-#include "gdt/gdt.h"
+#include "../stivale2/stivale2.h"
+#include "../stivale2/stivale2_tags.h"
+#include "../gdt/gdt.h"
+#include "../tty/tty.h"
 
 void pre_setup(struct stivale2_struct* stivale2_struct)
 {
     InitializeTags(stivale2_struct);
-    //tty_init();
+    tty_init();
 
     GDTDescriptor gdtDescriptor;
 
@@ -14,4 +15,6 @@ void pre_setup(struct stivale2_struct* stivale2_struct)
     gdtDescriptor.offset = (uint64_t)&DefaultGDT;
 
     loadGDT(&gdtDescriptor);
+
+    printk("Hello World");
 }
